@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { MapContainer, Marker } from 'react-leaflet';
+import ReactLeafletGoogleLayer from 'react-leaflet-google-layer'
+import { customMarkerIcon } from './components/CustomMarkerIcon';
+import SearchContainer from './components/SearchContainer';
 function App() {
+
+  const center = [-34.397, 150.644];
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='w-screen h-screen relative'>
+      <SearchContainer />
+      <MapContainer className='w-full h-full z-0'
+        zoom={9}
+        center={center}
+        scrollWheelZoom={false}
+      >
+        <ReactLeafletGoogleLayer />
+        {/* <Marker position={center} icon={customMarkerIcon}>
+        </Marker> */}
+      </MapContainer>
     </div>
   );
 }
