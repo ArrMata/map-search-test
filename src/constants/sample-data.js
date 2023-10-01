@@ -1,4 +1,4 @@
-var sampleData = [{
+export var sampleData = [{
 	id: 1,
 	name: 'Alberts Bike Shop',
 	location: {
