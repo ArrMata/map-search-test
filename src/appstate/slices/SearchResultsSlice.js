@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// SearchResultsSlice used for updating array of results that appear under the search bar. Updated each time search input is changed.
 export const searchResultsSlice = createSlice({
 	name: 'searchResults',
 	initialState: {

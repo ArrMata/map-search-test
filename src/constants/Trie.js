@@ -1,5 +1,8 @@
 import { sampleData } from "./sample-data";
 
+// Trie/Prefix tree data structure. Used in order to facilitate auto complete functionality
+// Creates and exports singleton of Trie with all names of locations inserted from sample data.
+
 class TrieNode {
 	constructor() {
 		this.children = {};
@@ -9,7 +12,7 @@ class TrieNode {
 
 class Trie {
 	constructor() {
-		this.root = new TrieNode()
+		this.root = new TrieNode();
 	}
 
 	insert(word) {
@@ -48,7 +51,11 @@ class Trie {
 			results.push(currentString);
 		}
 		for (let child in currentNode.children) {
-			this.autoCompleteHelper(currentNode.children[child], results, currentString + child);
+			this.autoCompleteHelper(
+				currentNode.children[child],
+				results,
+				currentString + child
+			);
 		}
 	}
 }

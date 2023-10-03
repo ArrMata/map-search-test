@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// ActiveResultSlice, used for selecting the location to display in details modal.
+
 export const activeResultSlice = createSlice({
 	name: 'activeResult',
 	initialState: {
