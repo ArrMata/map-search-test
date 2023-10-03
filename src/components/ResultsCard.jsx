@@ -2,19 +2,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateSearch } from "../appstate/slices/SearchSlice";
 import { selectResult } from "../appstate/slices/ActiveResultSlice";
 
-function ResultsCard({ location }) {
+function ResultsCard({ map, location }) {
 	const searchResults = useSelector(state => state.searchResults.results);
 	const dispatch = useDispatch();
 
-	const select = (name) => {
-		const selectedResult = searchResults.find(result => result.name === name);
-		dispatch(updateSearch(name));
-		dispatch(selectResult(selectedResult))
-		document.getElementById('my_modal_1').showModal();
+	const select = (location) => {
+		const zoom = map.getZoom();
+		const selectedResult = searchResults.find(result => result.name === location.name);
+		document.getElementById('locationDetailsModal').showModal();
+
+		dispatch(updateSearch(location.name));
+		dispatch(selectResult(selectedResult));
+		map.setView([location.location.lat, location.location.lon], zoom > 15 ? zoom : 15)
 	}
 
 	return (
-		<div onClick={() => select(location.name)}
+		<div onClick={() => select(location)}
 			className="bg-white p-3 flex items-center border-b border-gray-500 hover:cursor-pointer hover:bg-gray-300 transition-all"
 			key={location.id}
 		>
