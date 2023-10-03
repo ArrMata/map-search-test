@@ -5,7 +5,7 @@ import { updateResults } from "../appstate/slices/SearchResultsSlice";
 import { useEffect } from "react";
 import ResultsCard from "./ResultsCard";
 
-function ResultsList() {
+function ResultsList({ map }) {
 	const searchInput = useSelector(state => state.search.value);
 	const searchResults = useSelector(state => state.searchResults.results);
 	const dispatch = useDispatch();
@@ -24,7 +24,7 @@ function ResultsList() {
 	}, [searchInput, dispatch])
 
 	return (
-		<div className="mt-2">
+		<div className="mt-2 shadow-lg">
 			{searchInput ?
 				searchResults.length > 0 ? (
 					<p className="px-4 py-2 text-xl font-bold text-white rounded-t bg-blue-700 shadow-xl">
@@ -39,7 +39,7 @@ function ResultsList() {
 			}
 			{searchResults.length > 0 && searchInput ?
 				searchResults.map(result => (
-					<ResultsCard location={result} key={result.id} />
+					<ResultsCard map={map} location={result} key={result.id} />
 				))
 				:
 				<></>
