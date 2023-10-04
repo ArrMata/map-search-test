@@ -44,19 +44,17 @@ function DetailsModal() {
 							) : null}
 							{activeLocation.images ? (
 								<div className="grid grid-cols-3 gap-2 justify-center px-1 mt-6">
-									{activeLocation.images
-										? activeLocation.images.map((imageUrl) => (
-											<img
-												className="rounded-sm"
-												src={imageUrl}
-												key={imageUrl}
-												onError={(e) =>
-													(e.target.src = `https://placehold.co/500/7f1d1d/white/?text=Broken+Image`)
-												}
-												alt="Location Pictures"
-											/>
-										))
-										: null}
+									{activeLocation.images.map((imageUrl) => (
+										<img
+											className="rounded-sm"
+											src={imageUrl}
+											key={imageUrl}
+											onError={(e) =>
+												(e.target.src = `https://placehold.co/500/7f1d1d/white/?text=Broken+Image`)
+											}
+											alt="Location Pictures"
+										/>
+									))}
 								</div>
 							) : null}
 							{activeLocation.details?.avgStoreTraffic ? (

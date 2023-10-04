@@ -16,34 +16,36 @@ function App() {
   const mapSelection = useSelector((state) => state.activeMap.value);
 
   return (
-    <div className="w-screen h-screen relative">
-      <div className="absolute z-10 left-16 top-3">
+    <>
+      <header className="absolute z-10 left-16 top-3">
         <SearchInput />
         <ResultsList map={map} />
-      </div>
-      <div className="absolute z-10 left-4 bottom-3 shadow-lg">
+      </header>
+      <main className="w-screen h-screen relative">
+        <MapContainer
+          className="absolute w-full h-full z-0"
+          zoom={9}
+          center={center}
+          ref={setMap}
+        >
+          {mapSelection === "OpenStreetMap" ? (
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+          ) : (
+            // Used ReactLeafletGoogleLayer library in order to implement GoogleMaps as a TileLayer
+            // For Development Purposes only watermark removed with proper Api Key provided.
+            <ReactLeafletGoogleLayer />
+          )}
+          <InteractiveMarker />
+        </MapContainer>
+      </main>
+      <footer className="absolute z-10 left-4 bottom-3 shadow-lg">
         <MapSelect />
-      </div>
-      <MapContainer
-        className="absolute w-full h-full z-0"
-        zoom={9}
-        center={center}
-        ref={setMap}
-      >
-        {mapSelection === "OpenStreetMap" ? (
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-        ) : (
-          // Used ReactLeafletGoogleLayer library in order to implement GoogleMaps as a TileLayer
-          // For Development Purposes only watermark removed with proper Api Key provided.
-          <ReactLeafletGoogleLayer />
-        )}
-        <InteractiveMarker />
-      </MapContainer>
+      </footer>
       <DetailsModal />
-    </div>
+    </>
   );
 }
 
