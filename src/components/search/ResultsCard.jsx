@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { updateSearch } from "../../appstate/slices/SearchSlice";
 import { selectResult } from "../../appstate/slices/ActiveResultSlice";
 
@@ -6,17 +6,13 @@ import { selectResult } from "../../appstate/slices/ActiveResultSlice";
 // Displays the location name and location. 
 // When clicked: sets location as active in Redux Store, updates Search Bar to match location name, centers map view onto location and opens modal.
 function ResultsCard({ map, location }) {
-	const searchResults = useSelector((state) => state.searchResults.results);
 	const dispatch = useDispatch();
 
-	const selectLocation = (location) => {
+	const selectLocation = () => {
 		const zoom = map.getZoom();
-		const selectedResult = searchResults.find(
-			(result) => result.name === location.name
-		);
 		document.getElementById('locationDetailsModal').showModal();
 		dispatch(updateSearch(location.name));
-		dispatch(selectResult(selectedResult));
+		dispatch(selectResult(location));
 		map.setView(
 			[location.location.lat, location.location.lon],
 			zoom > 15 ? zoom : 15
@@ -25,7 +21,7 @@ function ResultsCard({ map, location }) {
 
 	return (
 		<div
-			onClick={() => selectLocation(location)}
+			onClick={() => selectLocation()}
 			className="bg-white p-3 flex items-center border-b border-gray-500 hover:cursor-pointer hover:bg-gray-300 transition-all"
 			key={location.id}
 		>
