@@ -23,7 +23,8 @@ function ResultsList({ map }) {
 			// 	);
 			// }
 			// Now uses built in methods to accomplish auto complete.
-			const results = sampleData.filter((data) => data.name.toLowerCase().includes(searchInput.toLowerCase()))
+			const lowercaseSearch = searchInput.toLowerCase();
+			const results = sampleData.filter((data) => data.name.toLowerCase().includes(lowercaseSearch))
 			dispatch(updateResults(results));
 		};
 
