@@ -9,7 +9,7 @@ function ResultsCard({ map, location }) {
 	const searchResults = useSelector((state) => state.searchResults.results);
 	const dispatch = useDispatch();
 
-	const select = (location) => {
+	const selectLocation = (location) => {
 		const zoom = map.getZoom();
 		const selectedResult = searchResults.find(
 			(result) => result.name === location.name
@@ -25,7 +25,7 @@ function ResultsCard({ map, location }) {
 
 	return (
 		<div
-			onClick={() => select(location)}
+			onClick={() => selectLocation(location)}
 			className="bg-white p-3 flex items-center border-b border-gray-500 hover:cursor-pointer hover:bg-gray-300 transition-all"
 			key={location.id}
 		>

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { dataTrie } from "../../constants/Trie";
+// import { dataTrie } from "../../constants/Trie";
 import { sampleData } from "../../constants/sample-data";
 import { updateResults } from "../../appstate/slices/SearchResultsSlice";
 import { useEffect } from "react";
@@ -14,13 +14,16 @@ function ResultsList({ map }) {
 
 	useEffect(() => {
 		const filterResults = () => {
-			const filteredNames = dataTrie.autoComplete(searchInput);
-			const results = [];
-			for (let name of filteredNames) {
-				results.push(
-					sampleData.find((data) => data.name.toLowerCase() === name)
-				);
-			}
+			// Original solution used Trie/Prefix Tree Data Structure
+			// const filteredNames = dataTrie.autoComplete(searchInput);
+			// const results = [];
+			// for (let name of filteredNames) {
+			// 	results.push(
+			// 		sampleData.find((data) => data.name.toLowerCase() === name)
+			// 	);
+			// }
+			// Now uses built in methods to accomplish auto complete.
+			const results = sampleData.filter((data) => data.name.toLowerCase().includes(searchInput.toLowerCase()))
 			dispatch(updateResults(results));
 		};
 
@@ -40,11 +43,13 @@ function ResultsList({ map }) {
 					</p>
 				)
 			) : null}
-			{searchResults.length > 0 && searchInput
-				? searchResults.map((result) => (
-					<ResultsCard map={map} location={result} key={result.id} />
-				))
-				: null}
+			<div className="max-h-96 overflow-y-scroll">
+				{searchResults.length > 0 && searchInput
+					? searchResults.map((result) => (
+						<ResultsCard map={map} location={result} key={result.id} />
+					))
+					: null}
+			</div>
 		</div>
 	);
 }
